@@ -1,0 +1,402 @@
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe,
+
+ВНЕЗАПНО: Недопустимая операция с плавающей точкой.
+
+#1: Исключение EXCEPTION_FLT_INVALID_OPERATION (0xC0000090) при выполнении кода по адресу 0x00007FF7ECB507C7 в функции (anonymous namespace)::TX::txRectangle() в файле C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h на строке 13368 в модуле C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400], Instance: 0x00007FF7ECD23FF0 (64-bit), Flags: Cmdre0, Thread: 0xDA0C (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF7ECB507C7 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: (anonymous namespace)::TX::txRectangle() at C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h (13368)
+
+# 1 0x00007FF7ECB5EF5E in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: DrawButton() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (41):
+
+     39:     double rd_corner_y = double (button->center.y + button->hight / 2);
+     40: 
+=>   41:     txRectangle (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y);
+     42:     txDrawText  (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y, button->text);
+     43: }
+
+# 2 0x00007FF7ECB5F082 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: RunDVD() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (68):
+
+     66:             
+     67:             button->border_color += BCKG_COLOR_VELOCITY;
+=>   68:             DrawButton(button);
+     69:             
+     70:             CheckReflection(button, &velocity, window_sizes);
+
+# 3 0x00007FF7ECB5ED09 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: GraphEngine() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (15):
+
+     13: 
+     14:     Vector2 window_sizes = {window_size_x, window_size_y};
+=>   15:     RunDVD(&start_dvd_button, &window_sizes);
+     16: }
+     17: 
+
+# 4 0x00007FF7ECB8DFFC in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: main() at C:/Users/71fru/Documents/GitHub/CRACK/src/main.cpp (17):
+
+     15:     fprintf(stderr, "START OF CRACK");
+     16: 
+=>   17:     GraphEngine();
+     18:    
+     19:     fprintf(stderr, "ENF OF CRACK");
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	lib/TXLib.h
+Compiled:	Mar  2 2025 12:54:18, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Mar 02 2025 12:55:08
+
+Run file:	C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe
+Directory:	C:\Users\71fru\Documents\GitHub\CRACK\build
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe,
+
+ВНЕЗАПНО: signal (8, 0x00): SIGFPE: Грубая ошибка в вычислениях. 
+
+Недопустимая операция с плавающей точкой.
+
+#1: Исключение EXCEPTION_FLT_INVALID_OPERATION (0xC0000090) при выполнении кода по адресу 0x00007FF7ECB507C7 в функции (anonymous namespace)::TX::txRectangle() в файле C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h на строке 13368 в модуле C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400], Instance: 0x00007FF7ECD23FF0 (64-bit), Flags: Cmdre0, Thread: 0xDA0C (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF7ECB507C7 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: (anonymous namespace)::TX::txRectangle() at C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h (13368)
+
+# 1 0x00007FF7ECB5EF5E in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: DrawButton() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (41):
+
+     39:     double rd_corner_y = double (button->center.y + button->hight / 2);
+     40: 
+=>   41:     txRectangle (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y);
+     42:     txDrawText  (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y, button->text);
+     43: }
+
+# 2 0x00007FF7ECB5F082 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: RunDVD() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (68):
+
+     66:             
+     67:             button->border_color += BCKG_COLOR_VELOCITY;
+=>   68:             DrawButton(button);
+     69:             
+     70:             CheckReflection(button, &velocity, window_sizes);
+
+# 3 0x00007FF7ECB5ED09 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: GraphEngine() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (15):
+
+     13: 
+     14:     Vector2 window_sizes = {window_size_x, window_size_y};
+=>   15:     RunDVD(&start_dvd_button, &window_sizes);
+     16: }
+     17: 
+
+# 4 0x00007FF7ECB8DFFC in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: main() at C:/Users/71fru/Documents/GitHub/CRACK/src/main.cpp (17):
+
+     15:     fprintf(stderr, "START OF CRACK");
+     16: 
+=>   17:     GraphEngine();
+     18:    
+     19:     fprintf(stderr, "ENF OF CRACK");
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	lib/TXLib.h
+Compiled:	Mar  2 2025 12:54:18, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Mar 02 2025 12:55:07
+
+Run file:	C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe
+Directory:	C:\Users\71fru\Documents\GitHub\CRACK\build
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe,
+
+ВНЕЗАПНО: Недопустимая операция с плавающей точкой.
+
+#1: Исключение EXCEPTION_FLT_INVALID_OPERATION (0xC0000090) при выполнении кода по адресу 0x00007FF6E6BA07C7 в функции (anonymous namespace)::TX::txRectangle() в файле C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h на строке 13368 в модуле C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400], Instance: 0x00007FF6E6D73FF0 (64-bit), Flags: Cmdre0, Thread: 0xAFAC (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF6E6BA07C7 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: (anonymous namespace)::TX::txRectangle() at C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h (13368)
+
+# 1 0x00007FF6E6BAEF5E in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: DrawButton() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (41):
+
+     39:     double rd_corner_y = double (button->center.y + button->hight / 2);
+     40: 
+=>   41:     txRectangle (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y);
+     42:     txDrawText  (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y, button->text);
+     43: }
+
+# 2 0x00007FF6E6BAF082 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: RunDVD() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (68):
+
+     66:             
+     67:             button->border_color += BCKG_COLOR_VELOCITY;
+=>   68:             DrawButton(button);
+     69:             
+     70:             CheckReflection(button, &velocity, window_sizes);
+
+# 3 0x00007FF6E6BAED09 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: GraphEngine() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (15):
+
+     13: 
+     14:     Vector2 window_sizes = {window_size_x, window_size_y};
+=>   15:     RunDVD(&start_dvd_button, &window_sizes);
+     16: }
+     17: 
+
+# 4 0x00007FF6E6BDE02C in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: main() at C:/Users/71fru/Documents/GitHub/CRACK/src/main.cpp (17):
+
+     15:     fprintf(stderr, "START OF CRACK");
+     16: 
+=>   17:     GraphEngine();
+     18:    
+     19:     fprintf(stderr, "ENF OF CRACK");
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	lib/TXLib.h
+Compiled:	Mar  2 2025 13:00:56, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Mar 02 2025 13:01:02
+
+Run file:	C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe
+Directory:	C:\Users\71fru\Documents\GitHub\CRACK\build
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe,
+
+ВНЕЗАПНО: signal (8, 0x00): SIGFPE: Грубая ошибка в вычислениях. 
+
+Недопустимая операция с плавающей точкой.
+
+#1: Исключение EXCEPTION_FLT_INVALID_OPERATION (0xC0000090) при выполнении кода по адресу 0x00007FF6E6BA07C7 в функции (anonymous namespace)::TX::txRectangle() в файле C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h на строке 13368 в модуле C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400], Instance: 0x00007FF6E6D73FF0 (64-bit), Flags: Cmdre0, Thread: 0xAFAC (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF6E6BA07C7 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: (anonymous namespace)::TX::txRectangle() at C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h (13368)
+
+# 1 0x00007FF6E6BAEF5E in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: DrawButton() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (41):
+
+     39:     double rd_corner_y = double (button->center.y + button->hight / 2);
+     40: 
+=>   41:     txRectangle (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y);
+     42:     txDrawText  (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y, button->text);
+     43: }
+
+# 2 0x00007FF6E6BAF082 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: RunDVD() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (68):
+
+     66:             
+     67:             button->border_color += BCKG_COLOR_VELOCITY;
+=>   68:             DrawButton(button);
+     69:             
+     70:             CheckReflection(button, &velocity, window_sizes);
+
+# 3 0x00007FF6E6BAED09 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: GraphEngine() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (15):
+
+     13: 
+     14:     Vector2 window_sizes = {window_size_x, window_size_y};
+=>   15:     RunDVD(&start_dvd_button, &window_sizes);
+     16: }
+     17: 
+
+# 4 0x00007FF6E6BDE02C in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: main() at C:/Users/71fru/Documents/GitHub/CRACK/src/main.cpp (17):
+
+     15:     fprintf(stderr, "START OF CRACK");
+     16: 
+=>   17:     GraphEngine();
+     18:    
+     19:     fprintf(stderr, "ENF OF CRACK");
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	lib/TXLib.h
+Compiled:	Mar  2 2025 13:00:56, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Mar 02 2025 13:01:03
+
+Run file:	C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe
+Directory:	C:\Users\71fru\Documents\GitHub\CRACK\build
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib предупреждает:
+
+Программа: C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe,
+
+ВНЕЗАПНО: Недопустимая операция с плавающей точкой.
+
+#1: Исключение EXCEPTION_FLT_INVALID_OPERATION (0xC0000090) при выполнении кода по адресу 0x00007FF7FE4907C7 в функции (anonymous namespace)::TX::txRectangle() в файле C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h на строке 13368 в модуле C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+#1: TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400], Instance: 0x00007FF7FE663FF0 (64-bit), Flags: Cmdre0, Thread: 0xAD70 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF7FE4907C7 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: (anonymous namespace)::TX::txRectangle() at C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h (13368)
+
+# 1 0x00007FF7FE49EF5E in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: DrawButton() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (41):
+
+     39:     double rd_corner_y = double (button->center.y + button->hight / 2);
+     40: 
+=>   41:     txRectangle (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y);
+     42:     txDrawText  (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y, button->text);
+     43: }
+
+# 2 0x00007FF7FE49F097 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: RunDVD() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (68):
+
+     66:             
+     67:             button->border_color += BCKG_COLOR_VELOCITY;
+=>   68:             DrawButton(button);
+     69:             
+     70:             CheckReflection(button, &velocity, window_sizes);
+
+# 3 0x00007FF7FE49ED09 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: GraphEngine() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (15):
+
+     13: 
+     14:     Vector2 window_sizes = {window_size_x, window_size_y};
+=>   15:     RunDVD(&start_dvd_button, &window_sizes);
+     16: }
+     17: 
+
+# 4 0x00007FF7FE4CE0AC in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: main() at C:/Users/71fru/Documents/GitHub/CRACK/src/main.cpp (17):
+
+     15:     fprintf(stderr, "START OF CRACK");
+     16: 
+=>   17:     GraphEngine();
+     18:    
+     19:     fprintf(stderr, "ENF OF CRACK");
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	lib/TXLib.h
+Compiled:	Mar  2 2025 13:02:47, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Mar 02 2025 13:02:54
+
+Run file:	C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe
+Directory:	C:\Users\71fru\Documents\GitHub\CRACK\build
+
+--------------------------------------------------
+
+--------------------------------------------------
+TXLib соболезнует...
+
+Программа: C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe,
+
+ВНЕЗАПНО: signal (8, 0x00): SIGFPE: Грубая ошибка в вычислениях. 
+
+Недопустимая операция с плавающей точкой.
+
+#1: Исключение EXCEPTION_FLT_INVALID_OPERATION (0xC0000090) при выполнении кода по адресу 0x00007FF7FE4907C7 в функции (anonymous namespace)::TX::txRectangle() в файле C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h на строке 13368 в модуле C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe. Спасибо _txVectoredExceptionHandler(), что сообщил. Люблю его <3
+
+С помощью функции signal() вы можете сами обработать эту ошибку.
+
+#2: TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400], Instance: 0x00007FF7FE663FF0 (64-bit), Flags: Cmdre0, Thread: 0xAD70 (Main). 
+
+--------------------------------------------------
+Стек вызовов:
+
+# 0 0x00007FF7FE4907C7 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: (anonymous namespace)::TX::txRectangle() at C:/Users/71fru/Documents/GitHub/CRACK/lib/TXLib.h (13368)
+
+# 1 0x00007FF7FE49EF5E in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: DrawButton() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (41):
+
+     39:     double rd_corner_y = double (button->center.y + button->hight / 2);
+     40: 
+=>   41:     txRectangle (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y);
+     42:     txDrawText  (lu_corner_x, lu_corner_y, rd_corner_x, rd_corner_y, button->text);
+     43: }
+
+# 2 0x00007FF7FE49F097 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: RunDVD() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (68):
+
+     66:             
+     67:             button->border_color += BCKG_COLOR_VELOCITY;
+=>   68:             DrawButton(button);
+     69:             
+     70:             CheckReflection(button, &velocity, window_sizes);
+
+# 3 0x00007FF7FE49ED09 in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: GraphEngine() at C:/Users/71fru/Documents/GitHub/CRACK/src/graphix.cpp (15):
+
+     13: 
+     14:     Vector2 window_sizes = {window_size_x, window_size_y};
+=>   15:     RunDVD(&start_dvd_button, &window_sizes);
+     16: }
+     17: 
+
+# 4 0x00007FF7FE4CE0AC in C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe: main() at C:/Users/71fru/Documents/GitHub/CRACK/src/main.cpp (17):
+
+     15:     fprintf(stderr, "START OF CRACK");
+     16: 
+=>   17:     GraphEngine();
+     18:    
+     19:     fprintf(stderr, "ENF OF CRACK");
+
+--------------------------------------------------
+Developed with:
+
+The Dumb Artist Library (TX Library)
+TXLib [Ver: 00173a, Rev: 173, Date: 2024-06-23 22:37:05 +0400]
+Copyright (C) Ded (Ilya Dedinsky, http://txlib.ru) <mail@txlib.ru>
+See license on: http://txlib.ru
+
+TXLib file:	lib/TXLib.h
+Compiled:	Mar  2 2025 13:02:47, GNU g++ 13.2.0, std=201703L, MinGW-W64 Runtime 11.0.1 (alpha - rev. 0) 0000-00-00, 64-bit, DEBUG
+Started:	Mar 02 2025 13:02:53
+
+Run file:	C:\Users\71fru\Documents\GitHub\CRACK\build\main.exe
+Directory:	C:\Users\71fru\Documents\GitHub\CRACK\build
+
+--------------------------------------------------

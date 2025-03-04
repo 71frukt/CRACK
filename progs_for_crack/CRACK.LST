@@ -1,0 +1,195 @@
+Turbo Assembler	 Version 4.1	    03/04/25 19:56:47	    Page 1
+crack.asm
+
+
+
+      1	    0000			 .model	tiny
+      2					 .386
+      3
+      4	    0000			 .code
+      5
+      6					 org 100h
+      7
+      8
+      9		  =000A			 PSWD_MAX_LEN	 equ 10d
+     10		  =000D			 ENTER_ASCII	 equ 0Dh
+     11
+     12		  =000D			 ENTER_ASCII	 equ 0Dh
+     13		  =0024			 ARGS_END_ASCII	 equ 24h     ; '$' ascii code
+     14
+     15
+     16					 ;-------------CODE									    +
+     17					 START-----------------------------------------------------------------------
+     18	    0100			 Start:
+     19
+     20					     ; welcome
+     21	    0100  BA 0000r			 lea dx, WELCOME_STR
+     22	    0103  B4 09				 mov ah, 09h
+     23	    0105  CD 21				 int 21h
+     24
+     25					     ; get pswd
+     26	    0107  BF 0057r			 lea di, PSWD_BUFFER
+     27	    010A  E8 0021			 call GetPswdToBuffer
+     28
+     29	    010D  E8 002C			 call GetPswdHash	 ; ax =	hash
+     30	    0110  3B 06	0061r			 cmp ax, CORRECT_PSWD_HASH
+     31
+     32	    0114  75 0C	90 90			 jne incorrect_pswd
+     33	    0118  BA 003Dr			 lea dx, CORRECT_PSWD_STR
+     34	    011B  B4 09				 mov ah, 09h
+     35	    011D  CD 21				 int 21h
+     36	    011F  EB 08	90			 jmp exit
+     37
+     38	    0122			     incorrect_pswd:
+     39	    0122  BA 004Er			 lea dx, INCORRECT_PSWD_STR
+     40	    0125  B4 09				 mov ah, 09h
+     41	    0127  CD 21				 int 21h
+     42
+     43	    0129			     exit:
+     44	    0129  B8 4C00			 mov ax, 4c00h
+     45	    012C  CD 21					 int 21h
+     46
+     47					 ;-------------------------------------------------------------------------------------
+     48					 ; Gets	Password To Buffer
+     49					 ; Entry:    ds:di = buffer
+     50					 ; Exit:     ds:di = a buffer filled with a password at	the end
+     51					 ; Destr:    ax
+     52					 ;-------------------------------------------------------------------------------------
+     53	    012E			 GetPswdToBuffer     proc
+     54	    012E  57				 push di
+     55
+     56	    012F  B4 01				 mov ah, 01h
+     57
+Turbo Assembler	 Version 4.1	    03/04/25 19:56:47	    Page 2
+crack.asm
+
+
+
+     58	    0131			     get_next_pswd_sym:
+     59	    0131  CD 21				 int 21h	     ; al = received char
+     60
+     61	    0133  88 05				 mov byte ptr ds:[di], al
+     62	    0135  47				 inc di
+     63
+     64	    0136  3C 0D				 cmp al, ENTER_ASCII
+     65	    0138  75 F7				 jne get_next_pswd_sym
+     66
+     67	    013A  5F				 pop di
+     68
+     69	    013B  C3				 ret
+     70	    013C				 endp
+     71					 ;-------------------------------------------------------------------------------------
+     72
+     73
+     74
+     75					 ;-------------------------------------------------------------------------------------
+     76					 ; Gets	hash code of the specified string
+     77					 ; Entry:    ds:di = string terminating	on ENTER_ASCII
+     78					 ; Exit:     ax	   = hash code
+     79					 ; Destr:    bx, di
+     80					 ;-------------------------------------------------------------------------------------
+     81	    013C			 GetPswdHash	 proc
+     82	    013C  B8 1505			 mov ax, 5381d	 ; start val of	hash
+     83
+     84	    013F			     next_char_to_hash:
+     85
+     86						 ; hash	= hash * 32 + ds:[di++]
+     87	    013F  BB 0020			 mov bx, 32
+     88	    0142  F7 E3				 mul bx
+     89
+     90	    0144  8A 1D				 mov bl, byte ptr ds:[di]
+     91	    0146  03 C3				 add ax, bx
+     92	    0148  47				 inc di
+     93
+     94	    0149  83 FB	24			 cmp bx, ARGS_END_ASCII
+     95	    014C  75 F1				 jne next_char_to_hash
+     96
+     97	    014E  C3				 ret
+     98	    014F				 endp
+     99					 ;-------------------------------------------------------------------------------------
+    100
+    101
+    102					 ;--------------CODE									    +
+    103					 END----------------------------------------------------------------------
+    104
+    105
+    106
+    107
+    108					 ;--------------DATA									    +
+    109					 START-----------------------------------------------------------------------
+    110	    014F			 .data
+    111
+    112	    0000  48 65	6C 6C 6F 20 6D+	 WELCOME_STR	     db	'Hello my little nazi! Enter your password to join the club: $'
+    113		  79 20	6C 69 74 74 6C+
+    114		  65 20	6E 61 7A 69 21+
+Turbo Assembler	 Version 4.1	    03/04/25 19:56:47	    Page 3
+crack.asm
+
+
+
+    115		  20 45	6E 74 65 72 20+
+    116		  79 6F	75 72 20 70 61+
+    117		  73 73	77 6F 72 64 20+
+    118		  74 6F	20 6A 6F 69 6E+
+    119		  20 74	68 65 20 63 6C+
+    120		  75 62	3A 20 24
+    121
+    122	    003D  43 4F	52 52 45 43 54+	 CORRECT_PSWD_STR    db	'CORRECT! Cum in!$'
+    123		  21 20	43 75 6D 20 69+
+    124		  6E 21	24
+    125	    004E  43 55	4D 20 4F 55 54+	 INCORRECT_PSWD_STR  db	'CUM OUT!$'
+    126		  21 24
+    127
+    128	    0057  0A*(00)		 PSWD_BUFFER	     db	PSWD_MAX_LEN dup(0)
+    129	    0061  4524			 CORRECT_PSWD_HASH   dw	4524h	; hash of 'ARS LOH'
+    130
+    131					 ;--------------DATA									    +
+    132					 END-----------------------------------------------------------------------
+    133
+    134					 end Start
+Turbo Assembler	 Version 4.1	    03/04/25 19:56:47	    Page 4
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "03/04/25"
+??FILENAME			  Text	 "crack	  "
+??TIME				  Text	 "19:56:47"
+??VERSION			  Number 040A
+@32BIT				  Text	 0
+@CODE				  Text	 DGROUP
+@CODESIZE			  Text	 0
+@CPU				  Text	 0F0FH
+@CURSEG				  Text	 _DATA
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 CRACK
+@INTERFACE			  Text	 000H
+@MODEL				  Text	 1
+@STACK				  Text	 DGROUP
+@WORDSIZE			  Text	 2
+ARGS_END_ASCII			  Number 0024
+CORRECT_PSWD_HASH		  Word	 DGROUP:0061
+CORRECT_PSWD_STR		  Byte	 DGROUP:003D
+ENTER_ASCII			  Number 000D
+EXIT				  Near	 DGROUP:0129
+GETPSWDHASH			  Near	 DGROUP:013C
+GETPSWDTOBUFFER			  Near	 DGROUP:012E
+GET_NEXT_PSWD_SYM		  Near	 DGROUP:0131
+INCORRECT_PSWD			  Near	 DGROUP:0122
+INCORRECT_PSWD_STR		  Byte	 DGROUP:004E
+NEXT_CHAR_TO_HASH		  Near	 DGROUP:013F
+PSWD_BUFFER			  Byte	 DGROUP:0057
+PSWD_MAX_LEN			  Number 000A
+START				  Near	 DGROUP:0100
+WELCOME_STR			  Byte	 DGROUP:0000
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  _DATA				  16  0063 Word	  Public  DATA
+  _TEXT				  16  014F Word	  Public  CODE
+

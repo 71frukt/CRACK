@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "graphics.h"
+#include "crack.h"
 
 const RGBColor COLOR_VELOCITY = {1, 2, 3};
 
@@ -21,8 +22,7 @@ void GraphEngine()
     if (DialogWindow() == USER_ANSWER_NO)
         return;
 
-    const char *input = txInputBox("ֲגוהטעו טלÿ פאיכא");
-
+    CrackProg();
 }
 
 void ButtonCtor(Button *button, Vector2 center, Vector2 sizes, RGBColor border_color, RGBColor bckg_color, const char *text)

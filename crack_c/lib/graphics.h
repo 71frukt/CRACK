@@ -20,7 +20,6 @@ const size_t  CRACK_BUTTON_VELOCITY_X = 2;      // pixels per shot
 const size_t  CRACK_BUTTON_VELOCITY_Y = 2;      // pixels per shot
 const size_t  FPS = 120;                        // shots  per sec
 
-
 const size_t BUTTON_TEXT_LEN = 100;
 
 
@@ -81,5 +80,6 @@ COLORREF RGBtoCOLORREF (RGBColor rgb_color);
 void     ColorGradient (RGBColor *color, RGBColor *color_velocity);
 
 CornersCoords CenterAndSizeToCornersCoords(Vector2 center, Vector2 sizes);
+
 
 #endif

@@ -7,7 +7,7 @@
 const size_t  WINDOW_WIDTH = 800;
 const size_t  WINDOW_HIGHT = 600;
 
-const int DEFAULT_SIZE = WINDOW_WIDTH / 20;
+const int DEFAULT_BUTTON_SIZE = WINDOW_WIDTH / 20;
 
 const size_t  CRACK_BUTTON_WIDTH = 100;
 const size_t  CRACK_BUTTON_HIGHT = 80;
@@ -36,6 +36,13 @@ struct RGBColor
     short blue;
 };
 
+const RGBColor RGB_RED        = {128, 0,   0  };
+const RGBColor RGB_GREEN      = {0,   128, 0  };
+const RGBColor RGB_BLUE       = {0,   0,   128};
+const RGBColor RGB_LIGHTCYAN  = {0,   255, 255};
+const RGBColor RGB_LIGHTGREEN = {0,   255, 128};
+
+
 struct Button
 {
     Vector2 center;
@@ -43,6 +50,9 @@ struct Button
     
     RGBColor border_color;
     RGBColor bckg_color;
+    
+    RGBColor click_border_color;    // цвета при наведении мыши на кнопку
+    RGBColor click_bckg_color;
     
     const char* text;
 };
@@ -61,10 +71,15 @@ enum UserAnswer
     USER_ANSWER_NO
 };
 
+void ButtonCtor(Button *button, Vector2 center, Vector2 sizes, 
+    RGBColor border_color, RGBColor bckg_color, RGBColor click_border_color, RGBColor click_bckg_color, 
+    const char *text);
+
+void DrawPointingOnButton(Button *button, bool *points_on_prev_frame);
+
 void GraphEngine         ();
 UserAnswer DialogWindow  ();   // вопрос запустить кряк или нет (выйти)
 void RunDVD              (Button *button, Vector2 window_sizes);
-void ButtonCtor          (Button *button, Vector2 center, Vector2 sizes, RGBColor border_color, RGBColor bckg_color, const char *text);
 void DrawButton          (Button *button);
 bool CheckReflection     (Button *button, Vector2 *button_velocity, Vector2 window_refl_borders);    // window_refl_borders = условные границы, по достижении которых центром рамки она должна отразиться
 bool MousePointsOnButton (Button *button);
@@ -77,7 +92,8 @@ Vector2 MulVecOnScalar (Vector2 vec, int scalar);
 Vector2 DivVecOnScalar (Vector2 vec, int scalar);
 
 COLORREF RGBtoCOLORREF (RGBColor rgb_color);
-void     ColorGradient (RGBColor *color, RGBColor *color_velocity);
+void     ColorGradient (RGBColor *color,   RGBColor *color_velocity);
+void     SwapColor     (RGBColor *color_1, RGBColor *color_2);
 
 CornersCoords CenterAndSizeToCornersCoords(Vector2 center, Vector2 sizes);
 

@@ -11,7 +11,7 @@ void GraphEngine()
     txCreateWindow(window_size_x, window_size_y);
 
     Button start_dvd_button = {};
-    ButtonCtor(&start_dvd_button, {window_size_x / 2, window_size_y / 2}, {DEFAULT_SIZE * 3, DEFAULT_SIZE * 2}, {255, 0, 0}, {255, 0, 0}, START_DVD_BUTTON_TEXT);
+    ButtonCtor(&start_dvd_button, {window_size_x / 2, window_size_y / 2}, {DEFAULT_BUTTON_SIZE * 3, DEFAULT_BUTTON_SIZE * 2}, {255, 0, 0}, {255, 0, 0}, {}, {}, START_DVD_BUTTON_TEXT);
     DrawButton(&start_dvd_button);
 
     Vector2 window_sizes = {window_size_x, window_size_y};
@@ -19,19 +19,42 @@ void GraphEngine()
     txPlaySound("intro.wav");                                       // скам
     txSleep(3);
 
-    if (DialogWindow() == USER_ANSWER_NO)
-        return;
+    Button res_message  = {};
+    ButtonCtor(&res_message, {window_size_x / 2, DEFAULT_BUTTON_SIZE * 3 / 2 + window_size_y / 8}, {DEFAULT_BUTTON_SIZE * 5, DEFAULT_BUTTON_SIZE * 3}, RGB_GREEN, RGB_LIGHTCYAN, {}, {}, "");
+    
+    bool user_choice = DialogWindow();
 
-    CrackProg();
+    if (user_choice == USER_ANSWER_YES)
+    {
+        CrackProg();
+        res_message.text = "Successfully crack";
+    }
+
+    else
+    {
+        res_message.border_color = RGB_RED;
+        res_message.bckg_color   = RGB_LIGHTCYAN;
+        res_message.text = "Exit..";
+    }
+
+    DrawButton(&res_message);
 }
 
-void ButtonCtor(Button *button, Vector2 center, Vector2 sizes, RGBColor border_color, RGBColor bckg_color, const char *text)
+void ButtonCtor(Button *button, Vector2 center, Vector2 sizes, 
+                RGBColor border_color, RGBColor bckg_color, RGBColor click_border_color, RGBColor click_bckg_color, 
+                const char *text)
 {
-    button->center = center;
+    assert(button);
+    assert(text);
+
+    button->center = center; // TODO: assert
     button->sizes  = sizes;
 
     button->border_color = border_color;
     button->bckg_color   = bckg_color;
+
+    button->click_border_color = click_border_color;
+    button->click_bckg_color   = click_bckg_color;
 
     button->text = text;
 }
@@ -55,14 +78,16 @@ void DrawButton(Button *button)
 
 void RunDVD(Button *button, Vector2 window_sizes)                           // передвигает кнопку как в двд до тех пор, пока на неЄ не нажмут
 {
+    assert(button);
+
     Vector2 velocity = {CRACK_BUTTON_VELOCITY_X, CRACK_BUTTON_VELOCITY_Y};
     Vector2 window_refl_borders = SubVecToVec(window_sizes, button->sizes);
 
     RGBColor color_velocity = COLOR_VELOCITY;
 
-    txPlaySound("bckg_music.wav");
-
     size_t prev_time = clock();
+    
+    txPlaySound("bckg_music.wav");
 
     while (CheckButtonClick(button) == false)
     {
@@ -84,8 +109,6 @@ void RunDVD(Button *button, Vector2 window_sizes)                           // п
             DrawButton(button);
             CheckReflection(button, &velocity, window_refl_borders);
         }
-
-        static int counter = 0;
     }
     
     return;
@@ -113,6 +136,9 @@ Vector2 DivVecOnScalar(Vector2 vec, int scalar)
 
 void ColorGradient(RGBColor *color, RGBColor *color_velocity)
 {
+    assert(color);
+    assert(color_velocity);
+
     if ((color->red >= 254 && color_velocity->red > 0) || (color->red <= 1 && color_velocity->red <= 0))   // переполнение && движение в сторону ещЄ большего переполнени€
         color_velocity->red *= -1;
 
@@ -129,6 +155,9 @@ void ColorGradient(RGBColor *color, RGBColor *color_velocity)
 
 bool CheckReflection(Button *button, Vector2 *button_velocity, Vector2 window_refl_borders)    // window_refl_borders = условные границы, по достижении которых центром рамки она должна отразитьс€
 {
+    assert(button);
+    assert(button_velocity);
+
     Vector2 window_center = {txGetExtentX() / 2, txGetExtentY() / 2};
 
     bool reflection_right = button->center.x > (window_center.x + window_refl_borders.x / 2);
@@ -171,11 +200,14 @@ CornersCoords CenterAndSizeToCornersCoords(Vector2 center, Vector2 sizes)
 
 bool CheckButtonClick(Button *button)
 {
+    assert(button);
     return (txMouseButtons() == 1 && MousePointsOnButton(button));  // нажатие на Ћ ћ + наведение на кнопку
 }
 
 bool MousePointsOnButton(Button *button)
 {
+    assert(button);
+
     Vector2 mouse_pos = {(int)txMouseX(), (int)txMouseY()};
 
     int lu_corner_x = button->center.x - button->sizes.x / 2;   // left-up corner of button
@@ -193,13 +225,6 @@ bool MousePointsOnButton(Button *button)
 
 UserAnswer DialogWindow()   // вопрос запустить кр€к или нет (выйти)
 {
-    RGBColor red        = {128, 0,   0  };
-    RGBColor green      = {0,   128, 0  };
-    RGBColor blue       = {0,   0,   128};
-    RGBColor lightcyan  = {0,   255, 255};
-    RGBColor lightgreen = {0,   255, 128};
-    
-
     Vector2 window_center = {txGetExtentX() / 2, txGetExtentY() / 2};
 
     const char *question_text = "Start vzloma?";
@@ -207,21 +232,21 @@ UserAnswer DialogWindow()   // вопрос запустить кр€к или нет (выйти)
 
     // draw question
     Button question_button = {};
-    Vector2 question_center = AddVecToVec(window_center, {0, -DEFAULT_SIZE});
-    ButtonCtor(&question_button, question_center, {DEFAULT_SIZE * 4, DEFAULT_SIZE * 2}, blue,  lightcyan, "Start vzloma?");
+    Vector2 question_center = AddVecToVec(window_center, {0, -DEFAULT_BUTTON_SIZE});
+    ButtonCtor(&question_button, question_center, {DEFAULT_BUTTON_SIZE * 4, DEFAULT_BUTTON_SIZE * 2}, RGB_BLUE,  RGB_LIGHTCYAN, RGB_LIGHTCYAN, RGB_BLUE, question_text);
 
     DrawButton(&question_button);
 
     // yes
     Button yes_button = {};
-    Vector2 ans_yes_center = AddVecToVec(window_center, {-DEFAULT_SIZE * 2, DEFAULT_SIZE * 2});
-    ButtonCtor(&yes_button, ans_yes_center, {DEFAULT_SIZE * 2, DEFAULT_SIZE * 2}, green,  lightcyan, "YES");
+    Vector2 ans_yes_center = AddVecToVec(window_center, {-DEFAULT_BUTTON_SIZE * 2, DEFAULT_BUTTON_SIZE * 2});
+    ButtonCtor(&yes_button, ans_yes_center, {DEFAULT_BUTTON_SIZE * 2, DEFAULT_BUTTON_SIZE * 2}, RGB_GREEN,  RGB_LIGHTCYAN, RGB_LIGHTCYAN, RGB_GREEN, "YES");
     DrawButton(&yes_button);
     
     // no
     Button no_button = {};
-    Vector2 ans_no_center = AddVecToVec(window_center, {DEFAULT_SIZE * 2, DEFAULT_SIZE * 2});
-    ButtonCtor(&no_button, ans_no_center, {DEFAULT_SIZE * 2, DEFAULT_SIZE * 2}, red,  lightcyan, "NO");
+    Vector2 ans_no_center = AddVecToVec(window_center, {DEFAULT_BUTTON_SIZE * 2, DEFAULT_BUTTON_SIZE * 2});
+    ButtonCtor(&no_button, ans_no_center, {DEFAULT_BUTTON_SIZE * 2, DEFAULT_BUTTON_SIZE * 2}, RGB_RED,  RGB_LIGHTCYAN, RGB_LIGHTCYAN, RGB_RED, "NO");
     DrawButton(&no_button);
 
 
@@ -236,64 +261,65 @@ UserAnswer DialogWindow()   // вопрос запустить кр€к или нет (выйти)
         if (CheckButtonClick(&no_button))
             return USER_ANSWER_NO;
 
-        // yes button click
-        if (MousePointsOnButton(&yes_button))   // сейчас указывает на кнопку
+        DrawPointingOnButton(&yes_button, &mouse_points_on_yes_button);
+        DrawPointingOnButton(&no_button,  &mouse_points_on_no_button);
+
+        if (mouse_points_on_yes_button && question_button.text != question_text_mousepointing)
         {
-            if (!mouse_points_on_yes_button)        // но раньше не указывал
-            {
-                question_button.text = question_text_mousepointing;
-                yes_button.bckg_color = green;
-                yes_button.border_color = lightcyan;
-                
-                DrawButton(&yes_button);
-                DrawButton(&question_button);
-                
-                mouse_points_on_yes_button = true;
-            }
+            question_button.text = question_text_mousepointing;
+            DrawButton(&question_button);
         }
 
-        else
+        else if (!mouse_points_on_yes_button && question_button.text == question_text_mousepointing)
         {
-            if (mouse_points_on_yes_button)         // раньше указывала, теперь нет
-            {
-                question_button.text = question_text;
-                yes_button.bckg_color = lightcyan;
-                yes_button.border_color = green;
-                
-                DrawButton(&yes_button);
-                DrawButton(&question_button);
-            }
-            
-            mouse_points_on_yes_button = false;
-        }
-
-        // no button click
-        if (MousePointsOnButton(&no_button))   // сейчас указывает на кнопку
-        {
-            if (!mouse_points_on_no_button)        // но раньше не указывал
-            {
-                no_button.bckg_color = red;
-                no_button.border_color = lightcyan;
-                
-                DrawButton(&no_button);
-                
-                mouse_points_on_no_button = true;
-            }
-        }
-
-        else
-        {
-            if (mouse_points_on_no_button)         // раньше указывала, теперь нет
-            {
-                no_button.bckg_color = lightcyan;
-                no_button.border_color = red;
-                
-                DrawButton(&no_button);
-            }
-            
-            mouse_points_on_no_button = false;
+            question_button.text = question_text;
+            DrawButton(&question_button);
         }
     }
     
+    no_button.bckg_color   = RGB_LIGHTCYAN;
+    no_button.border_color = RGB_RED; 
+    DrawButton(&no_button);
+
+    yes_button.bckg_color = RGB_LIGHTCYAN;
+    yes_button.border_color = RGB_GREEN;
+    DrawButton(&yes_button);
+
     return USER_ANSWER_YES;
+}
+
+void DrawPointingOnButton(Button *button, bool *points_on_prev_frame)
+{
+    if (MousePointsOnButton(button))   // сейчас указывает на кнопку
+    {
+        if (*points_on_prev_frame == false)        // но раньше не указывал
+        {
+            SwapColor(&button->bckg_color,   &button->click_bckg_color);
+            SwapColor(&button->border_color, &button->click_border_color);
+            
+            DrawButton(button);
+            
+            *points_on_prev_frame = true;
+        }
+    }
+
+    else
+    {
+        if (*points_on_prev_frame)         // раньше указывала, теперь нет
+        {
+            SwapColor(&button->bckg_color,   &button->click_bckg_color);
+            SwapColor(&button->border_color, &button->click_border_color);
+            
+            DrawButton(button);
+        }
+        
+        *points_on_prev_frame = false;
+    }
+}
+
+void SwapColor(RGBColor *color_1, RGBColor *color_2)
+{
+    RGBColor color_tmp = *color_1;
+    *color_1 = *color_2;
+    *color_2 = color_tmp;
 }

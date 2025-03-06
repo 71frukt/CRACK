@@ -6,7 +6,6 @@
 
 // #define BASE_EXE_FILE_NAME  "exe_file.com"
 
-
 // FILE *GetExeFile(const int argc, const char *argv[]);
 
 int main(const int argc, const char *argv[])
